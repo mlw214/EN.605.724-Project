@@ -1,12 +1,9 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 jupyter = "*"
 scipy = "*"
 numpy = "*"
@@ -15,7 +12,6 @@ tensorflow = "*"
 matplotlib = "*"
 seaborn = "*"
 pandas = "*"
-
+scikit-learn = "*"
 
 [dev-packages]
-

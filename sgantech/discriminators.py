@@ -12,7 +12,7 @@ from keras.layers import ZeroPadding2D
 from keras.models import Model, Sequential
 import numpy as np
 
-def dense(input_shape, num_classes):
+def dense(input_shape, num_classes, unsupervised_activation='sigmoid'):
     model = Sequential()
     model.add(Flatten(input_shape=input_shape))
     model.add(Dense(512))
@@ -25,12 +25,12 @@ def dense(input_shape, num_classes):
 
     real_fake_features = model(real_fake_input)
     label_features = model(label_input)
-    valid = Dense(1, activation="sigmoid")(real_fake_features)
-    label = Dense(num_classes+1, activation="softmax")(label_features)
+    valid = Dense(1, activation=unsupervised_activation, name='unsupervised_output')(real_fake_features)
+    label = Dense(num_classes+1, activation='softmax', name='softmax_output')(label_features)
 
     return Model([real_fake_input, label_input], [valid, label])
 
-def cnn(input_shape, num_classes):
+def cnn(input_shape, num_classes, unsupervised_activation='sigmoid'):
     model = Sequential()
     model.add(Conv2D(32, kernel_size=3, strides=2, input_shape=input_shape, padding='same'))
     model.add(LeakyReLU(alpha=0.2))
@@ -54,7 +54,7 @@ def cnn(input_shape, num_classes):
 
     real_fake_features = model(real_fake_input)
     label_features = model(label_input)
-    valid = Dense(1, activation="sigmoid")(real_fake_features)
-    label = Dense(num_classes+1, activation="softmax")(label_features)
+    valid = Dense(1, activation=unsupervised_activation, name='unsupervised_output')(real_fake_features)
+    label = Dense(num_classes+1, activation='softmax', name='softmax_output')(label_features)
 
     return Model([real_fake_input, label_input], [valid, label])

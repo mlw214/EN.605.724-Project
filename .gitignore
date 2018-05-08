@@ -251,3 +251,7 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/vim,macos,linux,emacs,python,windows,jupyternotebook,visualstudiocode
+
+results/
+saved_models/
+
